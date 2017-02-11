@@ -5,9 +5,8 @@
 
 ## FIDL syntax highlighting
 
-Emacs comes with builtin support for IDL files, which are pretty
-close to FIDL files, so this does is a good first pass.
-In your .emacs file add:
+Emacs comes with builtin support for IDL files,
+so this is a good first pass. In your .emacs file add:
 
 ```
 (add-to-list 'auto-mode-alist '("\\.fidl\\'" . idl-mode))
