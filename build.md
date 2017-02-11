@@ -1,3 +1,6 @@
+<!--
+// Copyright 2017 The Fuchsia Authors. All rights reserved.
+-->
 # Building Fuchsia
 
 There are some subtleties in the current Fuchsia build process
