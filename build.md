@@ -9,8 +9,7 @@ a couple of different files, it's nice to have a quick-start guide
 in the first place I look.
 
 The basic steps are as follows.
-The default target is amd64. Instructions for arm64 may get added,
-or you can just look for them in the Fuchsia docs.
+The default target is amd64. For building for arm64, see below.
 
 **Checkout**
 
@@ -41,6 +40,12 @@ also where magenta, the kernel, is built.
 ./scripts/build-sysroot.sh
 ```
 
+For arm64:
+
+```
+./scripts/build-sysroot.sh -t aarch64
+```
+
 WARNING: Don't forget to rerun this step after you do a full source update.
 This compiles, among other things, libc and various magenta libraries and puts
 them in out/sysroot. If you forget this step, and something like a new syscall
@@ -58,6 +63,12 @@ The next step is to run gn to take all the BUILD.gn files and generate
 ./packages/gn/gen.py
 ```
 
+For arm64:
+
+```
+./packages/gn/gen.py --target_cpu=aarch64
+```
+
 **Build**
 
 With that done we can now build the rest of Fuchsia.
@@ -66,7 +77,19 @@ With that done we can now build the rest of Fuchsia.
 ./buildtools/ninja -C out/debug-x86-64
 ```
 
+For arm64:
+
+```
+./buildtools/ninja -C out/debug-aarch64
+```
+
 One can make an alias for that or write a wrapper script or whatever.
+
+Building specific modules can be done with, e.g.,
+
+```
+./packages/gn/gen.py --target_cpu x86-64 --modules fortune,modular -o out/your_output
+```
 
 **Workflow**
 
