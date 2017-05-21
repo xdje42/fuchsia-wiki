@@ -28,22 +28,20 @@ to /usr/local/bin and chmod 755. You can do that, but you have to remember
 to keep it up to date, even jiri is changing as we go. It's easier to just
 use the jiri in the sandbox (but not have to hack $PATH).
 
-**Sysroot**
+**Kernel+Sysroot**
 
-The next step is building sysroot. "sysroot" is, essentially, what one thinks
-of as /usr/include and /usr/lib of a base system (e.g., libc, libc++, and
-misc base libraries/headers).
-The name "sysroot" in "build-sysroot.sh" is a bit of a misnomer as this is
-also where magenta, the kernel, is built.
+The next step is building the kernel (magenta) + sysroot.
+"sysroot" is, essentially, what one thinks of as /usr/include and /usr/lib
+of a base system (e.g., libc, libc++, and misc base libraries/headers).
 
 ```
-./scripts/build-sysroot.sh
+./scripts/build-magenta.sh
 ```
 
 For arm64:
 
 ```
-./scripts/build-sysroot.sh -t aarch64
+./scripts/build-magenta.sh -t aarch64
 ```
 
 WARNING: Don't forget to rerun this step after you do a full source update.
@@ -97,15 +95,19 @@ After that is done, when you need to update and rebuild:
 
 ```
 ./.jiri_root/bin/jiri update
-./scripts/build-sysroot.sh
+./scripts/build-magenta.sh
 ./buildtools/ninja -C out/debug-x86-64
 ```
+
+Sometimes changes are made that the dependencies don't/can't properly
+track. If a build fails, "rm -rf out" and try again.
 
 Working with jiri itself requires some discussion, for another day.
 
 WARNING: Rebuilding sysroot can often trigger a full rebuild due to
 how dependencies are managed. There are often ways to avoid having to
-rebuild sysroot. A topic for another day.
+rebuild sysroot. A topic for another day, though as Fuchsia matures
+the need for such hacks will go down.
 
 **References**
 
